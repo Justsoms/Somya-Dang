@@ -1,0 +1,2653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Somya Dang — City Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════
+   RESET & ROOT
+═══════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+:root {
+  --bg:       #070810;
+  --bg2:      #0a0b14;
+  --sky:      #0d0e1f;
+  --ground:   #0f1018;
+  --road:     #13141e;
+  --pavement: #1a1b28;
+  --text:     #d4cfe8;
+  --muted:    #6b6880;
+  --dim:      #302e40;
+  --card:     rgba(255,255,255,0.05);
+
+  /* Building accent colors */
+  --work-c:    #4fc3f7;
+  --about-c:   #ffb347;
+  --coding-c:  #cf6bdd;
+  --journal-c: #56e0a0;
+  --contact-c: #ff6b8a;
+  --home-c:    #ffe566;
+
+  --nav-def:   #3a3850;
+  --nav-bg:    rgba(7,8,16,0.88);
+  --input-bg:  rgba(255,255,255,0.03);
+  --wcard-bg:  #0b0c16;
+  --cccard-bg: #0c0910;
+}
+
+/* ── LIGHT MODE ── */
+body.light-mode {
+  --bg:       #f5f4f0;
+  --bg2:      #eeecea;
+  --text:     #1a1826;
+  --muted:    #7a7590;
+  --dim:      #b0adc0;
+  --card:     rgba(0,0,0,0.05);
+  --nav-bg:   rgba(245,244,240,0.92);
+  --nav-def:  #9a96b0;
+  --input-bg: rgba(0,0,0,0.04);
+  --wcard-bg: #eceae6;
+  --cccard-bg:#ede8f0;
+  --road:     #d8d6ce;
+  --pavement: #ccc8be;
+  --ground:   #dedad4;
+}
+
+body.light-mode .sky-layer {
+  background: linear-gradient(180deg,
+    #bdd4f0 0%,
+    #d6e8f8 35%,
+    #e8f4fd 65%,
+    #f5f0e8 100%
+  ) !important;
+}
+
+body.light-mode .moon {
+  background: radial-gradient(circle at 38% 40%, #fff9e0, #ffe066 40%, #f5c800);
+  box-shadow: 0 0 30px rgba(255,220,0,0.25), 0 0 70px rgba(255,220,0,0.08);
+}
+body.light-mode .moon::after {
+  background: #d6e8f8;
+}
+body.light-mode .star { opacity: 0.05 !important; }
+body.light-mode .cloud { opacity: 0.55 !important; }
+body.light-mode .cloud-shape { background: #ffffff; }
+
+body.light-mode .ground-layer {
+  background: linear-gradient(180deg, #dedad4 0%, #d0ccbf 100%);
+}
+body.light-mode .road-h { background: #bfbcb2; border-top-color: rgba(0,0,0,0.08); border-bottom-color: rgba(0,0,0,0.08); }
+body.light-mode .road-h::after { background: repeating-linear-gradient(90deg,#aaa8a0 0,#aaa8a0 28px,transparent 28px,transparent 56px); }
+body.light-mode .road-v { background: #bfbcb2; }
+body.light-mode .road-v::after { background: repeating-linear-gradient(180deg,#aaa8a0 0,#aaa8a0 18px,transparent 18px,transparent 36px); }
+body.light-mode .pavement-h { background: #ccc8be; }
+body.light-mode .lamp-post { background: #8a8880; }
+body.light-mode .lamp-head { background: #9a9890; }
+
+/* Darker building faces in light mode */
+body.light-mode .bld-home .b-front  { background: linear-gradient(180deg,#c8c4e0,#aaa8c8); }
+body.light-mode .bld-cafe .b-front  { background: linear-gradient(180deg,#d4c8a0,#c0b48a); }
+body.light-mode .bld-lib .b-front   { background: linear-gradient(180deg,#a8c4b4,#90b09a); }
+body.light-mode .bld-office .b-front{ background: linear-gradient(180deg,#9cbcd4,#88aac0); }
+body.light-mode .bld-theatre .b-front{ background: linear-gradient(180deg,#c4a8d0,#b094bc); }
+body.light-mode .bld-tower .b-front { background: linear-gradient(180deg,#d4a8b8,#c094a4); }
+
+body.light-mode nav {
+  background: var(--nav-bg);
+  border-bottom-color: rgba(0,0,0,0.06);
+}
+body.light-mode .city-title h1 { color: var(--text); text-shadow: 0 0 40px rgba(100,80,180,0.12); }
+body.light-mode .about-text p { color: #5a566e; }
+body.light-mode .skill-block { background: rgba(255,179,71,0.06); }
+body.light-mode .pill { background: rgba(0,0,0,0.08); color: var(--muted); }
+body.light-mode .w-card { background: var(--wcard-bg); box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+body.light-mode .cc-card { background: var(--cccard-bg); }
+body.light-mode .f-field input, body.light-mode .f-field textarea { background: var(--input-bg); border-color: rgba(255,107,138,0.25); color: var(--text); }
+body.light-mode footer { border-top-color: rgba(0,0,0,0.08); }
+body.light-mode ::-webkit-scrollbar-track { background: var(--bg); }
+body.light-mode ::-webkit-scrollbar-thumb { background: var(--dim); }
+
+/* ── TRANSITION for mode switch ── */
+body, nav, .sky-layer, .ground-layer, .road-h, .road-v,
+.bld-home .b-front, .bld-cafe .b-front, .bld-lib .b-front,
+.bld-office .b-front, .bld-theatre .b-front, .bld-tower .b-front,
+.w-card, .cc-card, .j-card, .skill-block, .f-field input, .f-field textarea {
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ── TOGGLE SWITCH ── */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  margin-left: 1.5rem;
+  flex-shrink: 0;
+}
+.toggle-track {
+  width: 42px;
+  height: 22px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 11px;
+  position: relative;
+  transition: background 0.3s, border-color 0.3s;
+}
+body.light-mode .toggle-track {
+  background: rgba(0,0,0,0.1);
+  border-color: rgba(0,0,0,0.15);
+}
+.toggle-thumb {
+  position: absolute;
+  top: 2px; left: 2px;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--dim);
+  transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), background 0.3s;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; line-height: 1;
+}
+body.light-mode .toggle-thumb {
+  transform: translateX(20px);
+  background: var(--home-c);
+}
+.toggle-icon {
+  font-size: 0.75rem;
+  opacity: 0.5;
+  transition: opacity 0.3s;
+  user-select: none;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--dim); border-radius: 2px; }
+
+/* ═══════════════════════════════════════
+   NAVBAR
+═══════════════════════════════════════ */
+nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2.8rem;
+  background: var(--nav-bg);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  transition: background 0.3s ease;
+}
+
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--text);
+  letter-spacing: 0.02em;
+}
+
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+
+.nav-links a {
+  text-decoration: none;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--nav-def);
+  transition: color 0.3s ease;
+}
+
+.nav-links a.act-home    { color: var(--home-c); }
+.nav-links a.act-about   { color: var(--about-c); }
+.nav-links a.act-journal { color: var(--journal-c); }
+.nav-links a.act-work    { color: var(--work-c); }
+.nav-links a.act-coding  { color: var(--coding-c); }
+.nav-links a.act-contact { color: var(--contact-c); }
+
+/* ═══════════════════════════════════════
+   CITY SCENE — HERO
+═══════════════════════════════════════ */
+#home {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 640px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* Sky gradient */
+.sky-layer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    #04040e 0%,
+    #080b1a 30%,
+    #0d1025 60%,
+    #111320 100%
+  );
+}
+
+/* Stars */
+.stars {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff;
+  animation: twinkle var(--dur) ease-in-out infinite;
+  animation-delay: var(--del);
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: var(--op); transform: scale(1); }
+  50%       { opacity: calc(var(--op) * 0.3); transform: scale(0.7); }
+}
+
+/* Moon */
+.moon {
+  position: absolute;
+  top: 7%;
+  right: 12%;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 40%, #fffde8, #f5e680 40%, #d4c840);
+  box-shadow: 0 0 30px rgba(255,240,100,0.35), 0 0 70px rgba(255,240,100,0.12);
+}
+
+.moon::after {
+  content: '';
+  position: absolute;
+  top: 6px; right: 4px;
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: #0d0e20;
+}
+
+/* Clouds */
+.cloud {
+  position: absolute;
+  opacity: 0.12;
+  animation: driftCloud var(--cd) linear infinite;
+  animation-delay: var(--cdd);
+}
+
+@keyframes driftCloud {
+  from { transform: translateX(-200px); }
+  to   { transform: translateX(calc(100vw + 300px)); }
+}
+
+.cloud-shape {
+  background: #8890cc;
+  border-radius: 50px;
+}
+
+/* Ground / road layer */
+.ground-layer {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 28%;
+  background: linear-gradient(180deg, #0f1018 0%, #0b0c14 100%);
+}
+
+/* Main road (horizontal) */
+.road-h {
+  position: absolute;
+  bottom: 13%;
+  left: 0; right: 0;
+  height: 36px;
+  background: #13141e;
+  border-top: 2px solid rgba(255,255,255,0.04);
+  border-bottom: 2px solid rgba(255,255,255,0.04);
+}
+
+/* Road dash lines */
+.road-h::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 0; right: 0;
+  height: 2px;
+  transform: translateY(-50%);
+  background: repeating-linear-gradient(
+    90deg,
+    #2a2c3e 0, #2a2c3e 28px,
+    transparent 28px, transparent 56px
+  );
+}
+
+/* Vertical road */
+.road-v {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 36px;
+  height: 28%;
+  background: #13141e;
+  border-left: 2px solid rgba(255,255,255,0.04);
+  border-right: 2px solid rgba(255,255,255,0.04);
+}
+
+.road-v::after {
+  content: '';
+  position: absolute;
+  left: 50%; top: 0; bottom: 0;
+  width: 2px;
+  transform: translateX(-50%);
+  background: repeating-linear-gradient(
+    180deg,
+    #2a2c3e 0, #2a2c3e 18px,
+    transparent 18px, transparent 36px
+  );
+}
+
+/* Pavement / sidewalks */
+.pavement-h {
+  position: absolute;
+  bottom: calc(13% - 10px);
+  left: 0; right: 0;
+  height: 10px;
+  background: #1c1d2c;
+}
+
+/* ═══════════════════════════════════════
+   CITY TITLE
+═══════════════════════════════════════ */
+.city-title {
+  position: absolute;
+  top: 12%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.city-title h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.5rem, 3.5vw, 2.4rem);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--text);
+  white-space: nowrap;
+  text-shadow: 0 0 40px rgba(200,190,255,0.2);
+}
+
+.city-title p {
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 0.4rem;
+}
+
+/* ═══════════════════════════════════════
+   BUILDINGS STAGE
+═══════════════════════════════════════ */
+.city-stage {
+  position: absolute;
+  bottom: calc(13% + 36px); /* FIXED — road ke upar */
+  left: 0; right: 0;
+  height: 68%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0;
+  padding: 0 2vw;
+  perspective: 800px;
+  z-index: 3;
+}
+
+/* ── BUILDING BASE ── */
+.building {
+  position: relative;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: transform 0.4s cubic-bezier(.34,1.56,.64,1), filter 0.4s ease;
+  transform-origin: bottom center;
+}
+
+/* DARK mode hover — neon glow */
+.building:hover {
+  transform: scaleY(1.04) scaleX(1.02) translateY(-10px);
+  z-index: 20;
+}
+.building:hover .b-front {
+  filter: drop-shadow(0 0 16px var(--bc)) drop-shadow(0 0 36px var(--bc));
+}
+
+/* LIGHT mode hover — soft shadow elevation, no glow */
+body.light-mode .building:hover .b-front {
+  filter: drop-shadow(0 12px 24px rgba(0,0,0,0.22)) drop-shadow(0 4px 8px rgba(0,0,0,0.14));
+}
+body.light-mode .building:hover {
+  transform: translateY(-8px) scale(1.01);
+}
+
+/* pseudo-3D side face */
+.b-front { position: relative; }
+
+.b-side {
+  position: absolute;
+  top: 0;
+  right: -14px;
+  width: 14px;
+  height: 100%;
+  transform-origin: left center;
+  transform: skewY(-2deg);
+  opacity: 0.6;
+}
+
+.b-top {
+  position: absolute;
+  top: -10px;
+  left: 0;
+  right: 0;
+  height: 10px;
+  opacity: 0.85;
+}
+
+/* Window grids */
+.b-windows {
+  position: absolute;
+  inset: 8px 8px 8px 8px;
+  display: grid;
+  gap: 4px;
+}
+
+.win {
+  border-radius: 1px;
+  transition: opacity 0.4s ease;
+}
+
+.win.lit {
+  animation: blink var(--bd, 4s) ease-in-out infinite;
+  animation-delay: var(--bdd, 0s);
+}
+
+@keyframes blink {
+  0%, 90%, 100% { opacity: 1; }
+  92%           { opacity: 0.15; }
+  94%           { opacity: 0.9; }
+  96%           { opacity: 0.15; }
+  98%           { opacity: 0.9; }
+}
+
+/* Neon sign */
+.neon-sign {
+  position: absolute;
+  bottom: calc(100% + 2px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.55rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  padding: 2px 6px;
+  border: 1px solid var(--bc);
+  border-radius: 2px;
+  color: var(--bc);
+  white-space: nowrap;
+  text-shadow: 0 0 8px var(--bc), 0 0 20px var(--bc);
+  box-shadow: 0 0 8px var(--bc), inset 0 0 6px rgba(255,255,255,0.04);
+  animation: neonFlicker 5s ease-in-out infinite;
+  z-index: 10;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+@keyframes neonFlicker {
+  0%, 95%, 100% { opacity: 0.9; }
+  96%           { opacity: 0.2; }
+  97%           { opacity: 0.85; }
+  98%           { opacity: 0.1; }
+  99%           { opacity: 0.9; }
+}
+
+/* Building tooltip */
+.b-label {
+  position: absolute;
+  bottom: -1.8rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bc);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.building:hover .b-label { opacity: 1; }
+
+/* ═══════════════════════════════════════
+   INDIVIDUAL BUILDINGS
+═══════════════════════════════════════ */
+
+/* 🏠 HOUSE — Home — far left, small */
+.bld-home {
+  --bc: var(--home-c);
+  margin-right: 10px;
+  margin-bottom: 6px;
+}
+.bld-home .b-front {
+  width: 80px;
+  height: 90px;
+  background: linear-gradient(180deg, #1e2035, #161826);
+  border: 1px solid rgba(255,229,102,0.15);
+}
+.bld-home .b-side  { background: #10111e; }
+.bld-home .b-top   { background: #1a1b2c; }
+.bld-home .b-windows { grid-template-columns: repeat(2,1fr); grid-template-rows: repeat(2,1fr); }
+.bld-home .win { background: rgba(255,229,102,0.75); }
+/* Roof triangle */
+.bld-home .b-roof {
+  position: absolute;
+  top: -28px; left: -5px; right: -5px;
+  height: 0;
+  border-left: 45px solid transparent;
+  border-right: 45px solid transparent;
+  border-bottom: 28px solid #1e2035;
+  filter: drop-shadow(0 -2px 6px rgba(255,229,102,0.1));
+}
+.bld-home .b-chimney {
+  position: absolute;
+  top: -44px; left: 16px;
+  width: 10px; height: 20px;
+  background: #181926;
+}
+
+/* ☕ CAFE — About — left-center */
+.bld-cafe {
+  --bc: var(--about-c);
+  margin-right: 14px;
+}
+.bld-cafe .b-front {
+  width: 100px;
+  height: 130px;
+  background: linear-gradient(180deg, #1f1c14, #171510);
+  border: 1px solid rgba(255,179,71,0.12);
+}
+.bld-cafe .b-side { background: #141208; }
+.bld-cafe .b-top  { background: #1a1710; }
+.bld-cafe .b-windows { grid-template-columns: repeat(2,1fr); grid-template-rows: repeat(3,1fr); }
+.bld-cafe .win { background: rgba(255,179,71,0.65); }
+/* Awning */
+.bld-cafe .awning {
+  position: absolute;
+  bottom: 28px; left: -4px; right: -4px;
+  height: 12px;
+  background: repeating-linear-gradient(
+    90deg, #8b3a00 0, #8b3a00 8px, #c25200 8px, #c25200 16px
+  );
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+}
+/* Door */
+.bld-cafe .b-door {
+  position: absolute;
+  bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 22px; height: 28px;
+  background: rgba(255,179,71,0.2);
+  border: 1px solid rgba(255,179,71,0.3);
+  border-radius: 10px 10px 0 0;
+}
+
+/* 🏫 LIBRARY — Journal — left of center */
+.bld-lib {
+  --bc: var(--journal-c);
+  margin-right: 12px;
+}
+.bld-lib .b-front {
+  width: 110px;
+  height: 160px;
+  background: linear-gradient(180deg, #101c16, #0c1510);
+  border: 1px solid rgba(86,224,160,0.12);
+}
+.bld-lib .b-side { background: #080e0a; width: 16px; right: -16px; }
+.bld-lib .b-top  { background: #121f17; }
+.bld-lib .b-windows { grid-template-columns: repeat(3,1fr); grid-template-rows: repeat(4,1fr); }
+.bld-lib .win { background: rgba(86,224,160,0.5); }
+/* Columns */
+.bld-lib .columns {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 30px;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  padding: 0 6px;
+}
+.bld-lib .col {
+  width: 8px;
+  height: 28px;
+  background: rgba(86,224,160,0.15);
+  border-radius: 1px;
+}
+/* Pediment */
+.bld-lib .pediment {
+  position: absolute;
+  top: -18px; left: -2px; right: -2px;
+  height: 0;
+  border-left: 57px solid transparent;
+  border-right: 57px solid transparent;
+  border-bottom: 18px solid #101c16;
+}
+
+/* 🏢 OFFICE — Work — tallest, center */
+.bld-office {
+  --bc: var(--work-c);
+  margin-right: 12px;
+}
+.bld-office .b-front {
+  width: 120px;
+  height: 240px;
+  background: linear-gradient(180deg, #0e1824, #0a1018);
+  border: 1px solid rgba(79,195,247,0.1);
+}
+.bld-office .b-side { background: #070d14; width: 18px; right: -18px; }
+.bld-office .b-top  { background: #0f1e2c; }
+.bld-office .b-windows { grid-template-columns: repeat(4,1fr); grid-template-rows: repeat(8,1fr); }
+.bld-office .win { background: rgba(79,195,247,0.55); border-radius: 1px; }
+/* Antenna */
+.bld-office .antenna {
+  position: absolute;
+  top: -30px; left: 50%; transform: translateX(-50%);
+  width: 3px; height: 30px;
+  background: #2a3a4a;
+}
+.bld-office .antenna::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%; transform: translateX(-50%);
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--work-c);
+  box-shadow: 0 0 10px var(--work-c), 0 0 20px var(--work-c);
+  animation: antennaFlash 2s ease-in-out infinite;
+}
+@keyframes antennaFlash {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.2; }
+}
+/* Lobby */
+.bld-office .lobby {
+  position: absolute;
+  bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 50px; height: 36px;
+  background: rgba(79,195,247,0.08);
+  border: 1px solid rgba(79,195,247,0.2);
+  border-bottom: none;
+}
+
+/* 🎭 THEATRE — Creative Coding — right of center */
+.bld-theatre {
+  --bc: var(--coding-c);
+  margin-right: 12px;
+}
+.bld-theatre .b-front {
+  width: 105px;
+  height: 175px;
+  background: linear-gradient(180deg, #1a0d20, #120814);
+  border: 1px solid rgba(207,107,221,0.12);
+}
+.bld-theatre .b-side { background: #0e0610; width: 15px; right: -15px; }
+.bld-theatre .b-top  { background: #1c0f22; }
+.bld-theatre .b-windows { grid-template-columns: repeat(3,1fr); grid-template-rows: repeat(4,1fr); }
+.bld-theatre .win { background: rgba(207,107,221,0.55); border-radius: 50%; }
+/* Dome top */
+.bld-theatre .dome {
+  position: absolute;
+  top: -28px; left: 50%; transform: translateX(-50%);
+  width: 60px; height: 28px;
+  background: #1a0d20;
+  border-radius: 30px 30px 0 0;
+  border: 1px solid rgba(207,107,221,0.15);
+  border-bottom: none;
+  box-shadow: 0 -4px 20px rgba(207,107,221,0.12);
+}
+/* Marquee */
+.bld-theatre .marquee {
+  position: absolute;
+  bottom: 35px; left: -2px; right: -2px;
+  height: 18px;
+  background: rgba(207,107,221,0.1);
+  border: 1px solid rgba(207,107,221,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.marquee-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.38rem;
+  color: var(--coding-c);
+  white-space: nowrap;
+  animation: marqueeScroll 8s linear infinite;
+}
+@keyframes marqueeScroll {
+  from { transform: translateX(100px); }
+  to   { transform: translateX(-200px); }
+}
+
+/* 📞 TOWER — Contact — far right, tallest */
+.bld-tower {
+  --bc: var(--contact-c);
+}
+.bld-tower .b-front {
+  width: 75px;
+  height: 200px;
+  background: linear-gradient(180deg, #1c0d12, #100709);
+  border: 1px solid rgba(255,107,138,0.1);
+}
+.bld-tower .b-side { background: #0e0508; width: 12px; right: -12px; }
+.bld-tower .b-top  { background: #1f0e14; }
+.bld-tower .b-windows { grid-template-columns: repeat(2,1fr); grid-template-rows: repeat(6,1fr); }
+.bld-tower .win { background: rgba(255,107,138,0.6); border-radius: 50%; }
+/* Spire */
+.bld-tower .spire {
+  position: absolute;
+  top: -50px; left: 50%; transform: translateX(-50%);
+  width: 0; height: 0;
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  border-bottom: 50px solid #1c0d12;
+  filter: drop-shadow(0 0 10px rgba(255,107,138,0.3));
+}
+.bld-tower .spire-tip {
+  position: absolute;
+  top: -55px; left: 50%; transform: translateX(-50%);
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--contact-c);
+  box-shadow: 0 0 10px var(--contact-c), 0 0 24px var(--contact-c);
+  animation: antennaFlash 1.4s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════
+   CARS — road-only movement
+═══════════════════════════════════════ */
+/* Road wrapper: clips cars so they only show ON the road strip */
+.road-h {
+  overflow: hidden;  /* cars clipped to road bounds */
+}
+
+.car {
+  position: absolute;
+  /* vertically centred inside the road strip */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 13px;
+  border-radius: 4px;
+  z-index: 2;
+  animation: carDriveR var(--carspd) linear infinite;
+  animation-delay: var(--cardel);
+
+  /* NEW */
+  box-shadow: 0 3px 8px rgba(0,0,0,0.5);
+}
+
+/* roof bubble */
+.car::before {
+  content: '';
+  position: absolute;
+  top: -5px; left: 6px; right: 6px;
+  height: 7px;
+  border-radius: 3px 3px 0 0;
+  background: inherit;
+  opacity: 0.75;
+
+  /* wheels illusion */
+  box-shadow:
+    -10px 14px 0 2px #000,
+     10px 14px 0 2px #000;
+}
+
+/* headlights (right-going cars) */
+.car::after {
+  content: '';
+  position: absolute;
+  right: -3px; top: 3px;
+  width: 3px; height: 7px;
+  border-radius: 1px;
+  background: rgba(255,255,200,0.85);
+  box-shadow: 0 0 7px rgba(255,255,200,0.7);
+}
+
+.car-right {
+  left: -60px;
+  background: #1e3a5f;
+}
+
+/* left-going car: flip horizontally so headlights face left */
+.car-left {
+  left: -60px;
+  background: #3d1a20;
+  transform: translateY(-50%) scaleX(-1);
+  animation-name: carDriveR;
+}
+
+@keyframes carDriveR {
+  from { left: -60px; }
+  to   { left: calc(100% + 60px); }
+}
+
+/* In light mode hide glow from headlights */
+body.light-mode .car::after {
+  background: rgba(200,180,60,0.7);
+  box-shadow: none;
+}
+
+/* ═══════════════════════════════════════
+   STREET LAMPS
+═══════════════════════════════════════ */
+.lamp {
+  position: absolute;
+  bottom: calc(13% + 36px);
+  z-index: 4;
+}
+.lamp-post {
+  width: 3px;
+  height: 40px;
+  background: #2a2c3e;
+  margin: 0 auto;
+}
+.lamp-head {
+  width: 14px;
+  height: 6px;
+  background: #32344a;
+  border-radius: 3px 3px 0 0;
+  margin: 0 auto;
+  position: relative;
+}
+.lamp-head::after {
+  content: '';
+  position: absolute;
+  bottom: -3px; left: 2px; right: 2px;
+  height: 3px;
+  background: rgba(255,240,150,0.9);
+  border-radius: 0 0 2px 2px;
+  box-shadow: 0 0 12px rgba(255,240,150,0.6), 0 0 30px rgba(255,240,150,0.2);
+  animation: lampFlicker 8s ease-in-out infinite;
+}
+@keyframes lampFlicker {
+  0%, 92%, 100% { opacity: 1; }
+  93%           { opacity: 0.5; }
+  94%           { opacity: 1; }
+  95%           { opacity: 0.3; }
+  96%           { opacity: 1; }
+}
+
+/* Ground glow from buildings */
+.bld-glow {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 20px;
+  border-radius: 50%;
+  filter: blur(12px);
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════
+   SCROLL HINT
+═══════════════════════════════════════ */
+.scroll-hint {
+  position: absolute;
+  bottom: 1.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--dim);
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  pointer-events: none;
+  animation: scrollBob 2.5s ease-in-out infinite;
+}
+
+@keyframes scrollBob {
+  0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.7; }
+  50%       { transform: translateX(-50%) translateY(6px); opacity: 1; }
+}
+
+/* ═══════════════════════════════════════
+   PORTFOLIO SECTIONS
+═══════════════════════════════════════ */
+.port-section {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 8rem 2.5rem 5rem;
+  position: relative;
+}
+
+.sec-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.sec-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 600;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+}
+
+.sec-divider {
+  width: 2.8rem;
+  height: 2px;
+  border-radius: 2px;
+  margin-bottom: 3rem;
+}
+
+/* ── ABOUT ── */
+#about .sec-tag    { color: var(--about-c); }
+#about .sec-title em { color: var(--about-c); font-style: italic; }
+#about .sec-divider  { background: var(--about-c); }
+
+.about-wrap {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+/* Profile image column */
+.about-image-col {
+  position: relative;
+}
+
+.profile-img-wrap {
+  position: sticky;
+  top: 6rem;
+  background: linear-gradient(145deg, rgba(255,179,71,0.08), transparent);
+  padding: 10px;
+  border-radius: 20px;
+}
+
+.profile-img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  border-radius: 16px;
+  display: block;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,179,71,0.12);
+  transition: transform 0.4s cubic-bezier(.34,1.56,.64,1), box-shadow 0.4s ease;
+}
+.profile-img:hover {
+  transform: scale(1.03) rotate(-1deg);
+  box-shadow: 0 28px 80px rgba(0,0,0,0.5), 0 0 0 2px rgba(255,179,71,0.3);
+}
+
+.profile-img-placeholder {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 3/4;
+  border-radius: 16px;
+  border: 1px dashed rgba(255,179,71,0.3);
+  background: rgba(255,179,71,0.03);
+  text-align: center;
+}
+.profile-img-placeholder span {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  font-style: italic;
+  color: rgba(255,179,71,0.35);
+  font-weight: 700;
+  line-height: 1;
+}
+.profile-img-placeholder p {
+  font-size: 0.65rem;
+  color: var(--muted);
+  line-height: 1.7;
+  letter-spacing: 0.04em;
+}
+.profile-img-placeholder code {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--about-c);
+  background: rgba(255,179,71,0.08);
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+}
+
+/* Right col */
+.about-right-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.about-text p {
+  font-size: 0.88rem;
+  line-height: 1.8;
+  color: #a8a3bb;
+  max-width: 520px;
+  margin-bottom: 1.1rem;
+}
+.about-text p strong { color: var(--text); }
+
+.skill-blocks {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.8rem;
+}
+
+.skill-block {
+  padding: 0.8rem 1rem;
+  border: 1px solid rgba(255,179,71,0.08);
+  border-radius: 10px;
+  background: rgba(255,179,71,0.02);
+}
+.skill-block:hover {
+  border-color: rgba(255,179,71,0.25);
+  background: rgba(255,179,71,0.06);
+}
+.skill-block h4 {
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--about-c);
+  margin-bottom: 0.6rem;
+  font-weight: 600;
+}
+.skill-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.pill {
+  font-size: 0.6rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.06);
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* ── JOURNAL ── */
+#journal .sec-tag    { color: var(--journal-c); }
+#journal .sec-title em { color: var(--journal-c); font-style: italic; }
+#journal .sec-divider  { background: var(--journal-c); }
+
+#journal {
+  background: linear-gradient(180deg, transparent, rgba(86,224,160,0.02) 50%, transparent);
+  overflow: hidden; /* clip carousel */
+}
+
+/* Carousel wrapper */
+.journal-carousel {
+  position: relative;
+  width: 100%;
+}
+
+/* Arrow nav buttons */
+.j-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+}
+.j-arrow {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(86,224,160,0.2);
+  background: rgba(86,224,160,0.04);
+  color: var(--journal-c);
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.25s, border-color 0.25s, transform 0.2s;
+  line-height: 1;
+}
+.j-arrow:hover {
+  background: rgba(86,224,160,0.12);
+  border-color: rgba(86,224,160,0.5);
+  transform: scale(1.08);
+}
+body.light-mode .j-arrow:hover {
+  background: rgba(86,224,160,0.1);
+  box-shadow: 0 4px 12px rgba(86,224,160,0.15);
+}
+.j-counter {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+  min-width: 40px;
+  text-align: center;
+}
+
+/* Viewport — hides overflow */
+.j-track-viewport {
+  overflow: hidden;
+  width: 100%;
+}
+
+/* Sliding track */
+.j-track {
+  display: flex;
+  align-items: stretch;
+  gap: 1.6rem;
+  transition: transform 0.55s cubic-bezier(0.4,0,0.2,1);
+  will-change: transform;
+  padding: 1rem 0 1.5rem;
+  scroll-behavior: smooth;
+}
+
+/* Individual card */
+.j-card {
+  flex: 0 0 420px;
+  padding: 2rem 2.2rem;
+  border: 1px solid rgba(86,224,160,0.13);
+  border-radius: 18px;
+  background: rgba(10, 20, 15, 0.7);
+  backdrop-filter: blur(14px);
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.45s cubic-bezier(0.4,0,0.2,1),
+              border-color 0.35s,
+              background 0.35s,
+              box-shadow 0.35s,
+              opacity 0.4s;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.04);
+  opacity: 0.55;
+  transform: scale(0.93) translateY(6px);
+}
+
+/* Active / focused card */
+.j-card.j-active {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  border-color: rgba(86,224,160,0.35);
+  box-shadow: 0 16px 50px rgba(86,224,160,0.1), 0 0 0 1px rgba(86,224,160,0.18),
+              inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+/* Dark mode hover on active card */
+.j-card.j-active:hover {
+  transform: scale(1.025) translateY(-4px);
+  box-shadow: 0 24px 60px rgba(86,224,160,0.16), 0 0 0 1.5px rgba(86,224,160,0.35),
+              inset 0 1px 0 rgba(255,255,255,0.07);
+}
+
+/* Light mode card base */
+body.light-mode .j-card {
+  background: rgba(248,252,250,0.88);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.07), inset 0 1px 0 rgba(255,255,255,0.9);
+}
+body.light-mode .j-card.j-active {
+  box-shadow: 0 10px 32px rgba(0,0,0,0.1), 0 0 0 1px rgba(86,224,160,0.22);
+}
+/* Light mode: soft elevation hover instead of glow */
+body.light-mode .j-card.j-active:hover {
+  transform: scale(1.02) translateY(-5px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.13), 0 0 0 1px rgba(86,224,160,0.28);
+}
+
+/* Progress dots */
+.j-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 1.4rem;
+}
+.j-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--dim);
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s, width 0.3s;
+  border: none;
+  padding: 0;
+}
+.j-dot.active {
+  background: var(--journal-c);
+  width: 18px;
+  border-radius: 3px;
+}
+
+.j-card-date {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  color: var(--journal-c);
+  margin-bottom: 0.6rem;
+}
+.j-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+.j-card p {
+  font-size: 0.78rem;
+  line-height: 1.75;
+  color: var(--muted);
+}
+.j-more {
+  display: inline-block;
+  margin-top: 1rem;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--journal-c);
+  text-decoration: none;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+.j-more:hover { opacity: 1; }
+
+/* ── WORK ── */
+#work .sec-tag    { color: var(--work-c); }
+#work .sec-title em { color: var(--work-c); font-style: italic; }
+#work .sec-divider  { background: var(--work-c); }
+
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.6rem;
+}
+
+/* Staggered reveal: start hidden, JS adds .visible */
+.w-card {
+  border: 1px solid rgba(79,195,247,0.08);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #0b0c16;
+  cursor: pointer;
+  position: relative;
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.6s ease, transform 0.6s ease,
+              box-shadow 0.4s ease, border-color 0.4s ease;
+}
+.w-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* DARK hover — glow */
+.w-card:hover {
+  box-shadow: 0 20px 50px rgba(0,0,0,0.55), 0 0 0 1px rgba(79,195,247,0.25),
+              0 0 30px rgba(79,195,247,0.06);
+  border-color: rgba(79,195,247,0.22);
+}
+
+/* LIGHT hover — soft lift, no glow */
+body.light-mode .w-card {
+  background: var(--wcard-bg);
+  border-color: rgba(79,195,247,0.14);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+}
+body.light-mode .w-card:hover {
+  box-shadow: 0 14px 36px rgba(0,0,0,0.12), 0 0 0 1px rgba(79,195,247,0.2);
+  border-color: rgba(79,195,247,0.28);
+}
+
+/* Thumbnail */
+.w-thumb {
+  height: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.5s ease;
+}
+.w-card:hover .w-thumb { transform: scale(1.07); }
+
+/* Overlay on hover — title + desc over thumbnail */
+.w-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 14, 30, 0.82);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  backdrop-filter: blur(3px);
+}
+body.light-mode .w-overlay {
+  background: rgba(220,230,240,0.88);
+}
+.w-card:hover .w-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+.w-overlay h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--work-c);
+  margin-bottom: 0.4rem;
+}
+body.light-mode .w-overlay h4 { color: #1a5a7a; }
+.w-overlay p {
+  font-size: 0.7rem;
+  color: rgba(200,220,240,0.85);
+  line-height: 1.55;
+}
+body.light-mode .w-overlay p { color: #3a5a6a; }
+.w-overlay-cta {
+  margin-top: 0.6rem;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--work-c);
+  border: 1px solid rgba(79,195,247,0.35);
+  padding: 0.2rem 0.7rem;
+  border-radius: 20px;
+}
+
+.w-info { padding: 1.4rem; }
+.w-info h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+}
+.w-info p {
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.65;
+  margin-bottom: 0.8rem;
+}
+.w-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.w-tag {
+  font-size: 0.6rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 30px;
+  background: rgba(79,195,247,0.08);
+  color: var(--work-c);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ── CREATIVE CODING ── */
+#coding .sec-tag    { color: var(--coding-c); }
+#coding .sec-title em { color: var(--coding-c); font-style: italic; }
+#coding .sec-divider  { background: var(--coding-c); }
+
+.coding-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.cc-card {
+  border: 1px solid rgba(207,107,221,0.12);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #0c0910;
+  cursor: pointer;
+  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+}
+/* DARK hover — glow */
+.cc-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 60px rgba(207,107,221,0.12), 0 0 0 1px rgba(207,107,221,0.28);
+}
+/* LIGHT hover — soft lift */
+body.light-mode .cc-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.12), 0 0 0 1px rgba(207,107,221,0.22);
+}
+.cc-preview {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  position: relative;
+  overflow: hidden;
+}
+.cc-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(20px);
+  animation: ccOrb var(--od) ease-in-out infinite alternate;
+  animation-delay: var(--oddel, 0s);
+}
+@keyframes ccOrb {
+  from { transform: translate(-20px, -10px); }
+  to   { transform: translate(20px, 10px); }
+}
+.cc-info { padding: 1.5rem; }
+.cc-info h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+.cc-info p {
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 0.8rem;
+}
+.cc-tech {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--coding-c);
+  letter-spacing: 0.08em;
+}
+
+/* ── CONTACT ── */
+#contact {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  max-width: 100%;
+  padding: 8rem 2rem;
+}
+#contact .sec-tag    { color: var(--contact-c); }
+#contact .sec-title em { color: var(--contact-c); font-style: italic; }
+#contact .sec-divider  { background: var(--contact-c); margin: 1rem auto 1.5rem; }
+#contact .sec-title { margin-bottom: 0.5rem; }
+
+.contact-sub {
+  font-size: 0.85rem;
+  color: var(--muted);
+  max-width: 400px;
+  line-height: 1.85;
+  margin-bottom: 2.8rem;
+}
+
+.contact-form {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+.f-field { display: flex; flex-direction: column; gap: 0.45rem; }
+
+.f-field label {
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+  text-align: left;
+}
+
+.f-field input, .f-field textarea {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,107,138,0.12);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  outline: none;
+  transition: border-color 0.25s, background 0.25s;
+  resize: none;
+}
+.f-field input:focus, .f-field textarea:focus {
+  border-color: var(--contact-c);
+  background: rgba(255,107,138,0.05);
+}
+.f-field textarea { height: 100px; }
+
+.btn-contact {
+  align-self: center;
+  margin-top: 0.5rem;
+  padding: 0.85rem 3rem;
+  border: 1px solid var(--contact-c);
+  border-radius: 40px;
+  background: transparent;
+  color: var(--contact-c);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+}
+.btn-contact:hover {
+  background: var(--contact-c);
+  color: var(--bg);
+  box-shadow: 0 0 30px rgba(255,107,138,0.3);
+}
+body.light-mode .btn-contact:hover {
+  background: var(--contact-c);
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(255,107,138,0.25);
+}
+
+/* ── FOOTER ── */
+footer {
+  text-align: center;
+  padding: 2.5rem;
+  border-top: 1px solid rgba(255,255,255,0.04);
+  font-size: 0.68rem;
+  color: var(--dim);
+  letter-spacing: 0.1em;
+}
+footer span { color: var(--home-c); }
+
+/* ── REVEAL ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.2rem; }
+  .nav-links { gap: 1rem; }
+  .nav-links a { font-size: 0.6rem; }
+  .about-wrap, .coding-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .about-image-col { max-width: 240px; margin: 0 auto; }
+  .f-row { grid-template-columns: 1fr; }
+  .port-section { padding: 5rem 1.4rem 3rem; }
+  .city-stage { gap: 0; overflow-x: auto; }
+  .theme-toggle { margin-left: 0.8rem; }
+  .toggle-icon { display: none; }
+  /* Journal carousel on mobile */
+  .j-card { flex: 0 0 88vw; }
+}
+
+.about-right-col {
+  background: rgba(255,255,255,0.02);
+  padding: 1.5rem;
+  border-radius: 14px;
+}
+
+/* subtle depth for city */
+.city-stage {
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.6));
+}
+
+/* slight parallax feel */
+.sky-layer {
+  will-change: transform;
+}
+
+/* Journal popup */
+.journal-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.journal-popup.show {
+  opacity: 1;
+}
+.jp-content {
+  width: 90%;
+  max-width: 800px;
+  background: #0b0b14;
+  padding: 30px;
+  border-radius: 20px;
+  color: white;
+  position: relative;
+  max-height: 85vh;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 20px;
+  transform: translateY(40px) scale(0.95);
+  transition: 0.35s cubic-bezier(.34,1.56,.64,1);
+}
+.journal-popup.show .jp-content {
+  transform: translateY(0) scale(1);
+}
+.jp-content img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+.jp-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  cursor: pointer;
+  font-size: 20px;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+  z-index: 2;
+}
+.jp-close:hover { opacity: 1; }
+.jp-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+@media (max-width: 600px) {
+  .jp-content {
+    grid-template-columns: 1fr;
+  }
+}
+#jp-date {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--journal-c);
+  margin: 0.4rem 0 0;
+}
+#jp-text {
+  font-size: 0.88rem;
+  line-height: 1.85;
+  color: #a8a3bb;
+  margin-top: 0.5rem;
+}
+
+/* Cursor pointer on cards */
+.w-card, .cc-card { cursor: pointer; }
+
+/* Project & code preview images */
+.w-thumb img {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 12px;
+  position: absolute;
+  inset: 0;
+  transition: transform 0.3s ease;
+}
+.w-card:hover img {
+  transform: scale(1.05);
+}
+.cc-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+  transition: transform 0.3s ease;
+}
+.cc-card:hover .cc-preview img {
+  transform: scale(1.05);
+}
+
+/* ── PROJECT POPUP (PDF Viewer) ── */
+.project-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.88);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9998;
+}
+.pp-content {
+  width: 90%;
+  height: 85%;
+  background: #0b0b14;
+  border-radius: 14px;
+  position: relative;
+  overflow: hidden;
+  animation: popupFade 0.3s ease;
+  border: 1px solid rgba(79,195,247,0.15);
+}
+.pp-content iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+.pp-close {
+  position: absolute;
+  top: 14px; right: 18px;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--text);
+  z-index: 10;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+  font-style: normal;
+}
+.pp-close:hover { background: rgba(255,255,255,0.18); }
+body.light-mode .pp-close { color: var(--text); background: rgba(0,0,0,0.08); }
+body.light-mode .pp-content { background: #f0eee8; border-color: rgba(79,195,247,0.2); }
+@keyframes popupFade {
+  from { transform: scale(0.95); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+/* Grain overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.3;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ NAVBAR ═══════════ -->
+<nav>
+  <div class="nav-logo">Somya Dang</div>
+  <ul class="nav-links">
+    <li><a href="#home"    data-sec="home"    class="act-home">Home</a></li>
+    <li><a href="#about"   data-sec="about">About</a></li>
+    <li><a href="#journal" data-sec="journal">Journal</a></li>
+    <li><a href="#work"    data-sec="work">Work</a></li>
+    <li><a href="#coding"  data-sec="coding">Creative Coding</a></li>
+    <li><a href="#contact" data-sec="contact">Contact</a></li>
+  </ul>
+  <div class="theme-toggle" id="themeToggle" title="Toggle light/dark mode">
+    <span class="toggle-icon">🌙</span>
+    <div class="toggle-track">
+      <div class="toggle-thumb">☀️</div>
+    </div>
+    <span class="toggle-icon">☀️</span>
+  </div>
+</nav>
+
+<!-- ═══════════ CITY HERO ═══════════ -->
+<section id="home">
+
+  <!-- Sky -->
+  <div class="sky-layer"></div>
+
+  <!-- Stars (generated by JS) -->
+  <div class="stars" id="stars"></div>
+
+  <!-- Moon -->
+  <div class="moon"></div>
+
+  <!-- Clouds -->
+  <div class="cloud" style="top:18%;--cd:40s;--cdd:-10s;">
+    <div class="cloud-shape" style="width:120px;height:24px;"></div>
+    <div class="cloud-shape" style="width:80px;height:20px;margin-top:-14px;margin-left:20px;"></div>
+  </div>
+  <div class="cloud" style="top:28%;--cd:60s;--cdd:-30s;">
+    <div class="cloud-shape" style="width:90px;height:18px;"></div>
+    <div class="cloud-shape" style="width:60px;height:16px;margin-top:-10px;margin-left:15px;"></div>
+  </div>
+  <div class="cloud" style="top:12%;--cd:50s;--cdd:-45s;">
+    <div class="cloud-shape" style="width:150px;height:28px;"></div>
+    <div class="cloud-shape" style="width:100px;height:22px;margin-top:-16px;margin-left:28px;"></div>
+  </div>
+
+  <!-- City title -->
+  <div class="city-title">
+    <h1>Welcome to Somya's City ✦</h1>
+    <p>Click a building to explore</p>
+  </div>
+
+  <!-- Ground layer -->
+  <div class="ground-layer"></div>
+  <div class="road-h">
+    <!-- Cars INSIDE road — clipped to road bounds -->
+    <div class="car car-right" style="--carspd:16s;--cardel:0s;"></div>
+    <div class="car car-right" style="--carspd:22s;--cardel:-9s;background:#1a3a2a;"></div>
+    <div class="car car-left"  style="--carspd:19s;--cardel:-4s;"></div>
+    <div class="car car-left"  style="--carspd:27s;--cardel:-13s;background:#2a1a3a;"></div>
+  </div>
+  <div class="road-v"></div>
+  <div class="pavement-h"></div>
+
+  <!-- Street lamps -->
+  <div class="lamp" style="left:10%;"><div class="lamp-head"></div><div class="lamp-post"></div></div>
+  <div class="lamp" style="left:28%;"><div class="lamp-head"></div><div class="lamp-post"></div></div>
+  <div class="lamp" style="left:62%;"><div class="lamp-head"></div><div class="lamp-post"></div></div>
+  <div class="lamp" style="left:80%;"><div class="lamp-head"></div><div class="lamp-post"></div></div>
+
+  <!-- ═══ CITY STAGE ═══ -->
+  <div class="city-stage">
+
+    <!-- 🏠 HOME HOUSE -->
+    <div class="building bld-home" onclick="goTo('home')" title="Home">
+      <div class="neon-sign">HOME</div>
+      <div class="b-front">
+        <div class="b-roof"></div>
+        <div class="b-chimney"></div>
+        <div class="b-windows">
+          <div class="win lit" style="--bd:3s;--bdd:0s;"></div>
+          <div class="win lit" style="--bd:5s;--bdd:-1s;"></div>
+          <div class="win lit" style="--bd:7s;--bdd:-2s;"></div>
+          <div class="win" style="opacity:0.1;"></div>
+        </div>
+        <div class="b-side" style="background:#0f1018;"></div>
+        <div class="bld-glow" style="background:var(--home-c);"></div>
+      </div>
+      <div class="b-label">↑ home</div>
+    </div>
+
+    <!-- ☕ CAFE — About -->
+    <div class="building bld-cafe" onclick="goTo('about')" title="About Me">
+      <div class="neon-sign">CAFÉ</div>
+      <div class="b-front">
+        <div class="b-windows">
+          <div class="win lit" style="--bd:4s;--bdd:0s;"></div>
+          <div class="win lit" style="--bd:6s;--bdd:-0.8s;"></div>
+          <div class="win lit" style="--bd:5s;--bdd:-1.5s;"></div>
+          <div class="win lit" style="--bd:7s;--bdd:-2s;"></div>
+          <div class="win lit" style="--bd:4.5s;--bdd:-0.3s;"></div>
+          <div class="win" style="opacity:0.1;"></div>
+        </div>
+        <div class="awning"></div>
+        <div class="b-door"></div>
+        <div class="b-side" style="background:#0f0c06;"></div>
+        <div class="bld-glow" style="background:var(--about-c);"></div>
+      </div>
+      <div class="b-label">↑ about</div>
+    </div>
+
+    <!-- 🏫 LIBRARY — Journal -->
+    <div class="building bld-lib" onclick="goTo('journal')" title="Journal">
+      <div class="neon-sign">LIBRARY</div>
+      <div class="b-front">
+        <div class="pediment"></div>
+        <div class="b-windows">
+          <div class="win lit" style="--bd:6s;--bdd:0s;"></div>
+          <div class="win lit" style="--bd:4s;--bdd:-1s;"></div>
+          <div class="win lit" style="--bd:8s;--bdd:-2s;"></div>
+          <div class="win lit" style="--bd:5s;--bdd:-0.5s;"></div>
+          <div class="win lit" style="--bd:7s;--bdd:-1.5s;"></div>
+          <div class="win lit" style="--bd:4s;--bdd:-3s;"></div>
+          <div class="win" style="opacity:0.08;"></div>
+          <div class="win lit" style="--bd:9s;--bdd:-0.2s;"></div>
+          <div class="win lit" style="--bd:5s;--bdd:-2.5s;"></div>
+          <div class="win lit" style="--bd:6s;--bdd:-1.8s;"></div>
+          <div class="win" style="opacity:0.08;"></div>
+          <div class="win lit" style="--bd:3.5s;--bdd:-0.7s;"></div>
+        </div>
+        <div class="columns">
+          <div class="col"></div><div class="col"></div>
+          <div class="col"></div><div class="col"></div>
+        </div>
+        <div class="b-side" style="background:#060c08;width:16px;right:-16px;"></div>
+        <div class="bld-glow" style="background:var(--journal-c);"></div>
+      </div>
+      <div class="b-label">↑ journal</div>
+    </div>
+
+    <!-- 🏢 OFFICE — Work -->
+    <div class="building bld-office" onclick="goTo('work')" title="Work">
+      <div class="neon-sign">OFFICE</div>
+      <div class="b-front">
+        <div class="antenna"></div>
+        <div class="b-windows">
+          <!-- 8 rows × 4 cols = 32 windows -->
+          <div class="win lit" style="--bd:3s;--bdd:0s;"></div>
+          <div class="win lit" style="--bd:5s;--bdd:-0.5s;"></div>
+          <div class="win lit" style="--bd:4s;--bdd:-1s;"></div>
+          <div class="win lit" style="--bd:6s;--bdd:-1.5s;"></div>
+          <div class="win lit" style="--bd:7s;--bdd:-2s;"></div>
+          <div class="win" style="opacity:0.08;"></div>
+          <div class="win lit" style="--bd:4s;--bdd:-2.5s;"></div>
+          <div class="win lit" style="--bd:3.5s;--bdd:-0.3s;"></div>
+          <div class="win lit" style="--bd:5s;--bdd:-3s;"></div>
+          <div class="win lit" style="--bd:8s;--bdd:-1.2s;"></div>
+          <div class="win" style="opacity:0.08;"></div>
+          <div class="win lit" style="--bd:6s;--bdd:-0.8s;"></div>
+          <div class="win lit" style="--bd:4.5s;--bdd:-1.8s;"></div>
+          <div class="win lit" style="--bd:7s;--bdd:-2.2s;"></div>
+          <div class="win lit" style="--bd:3s;--bdd:-0.6s;"></div>
+          <div class="win lit" style="--bd:5.5s;--bdd:-3.5s;"></div>
+          <div class="win lit" style="--bd:4s;--bdd:-1.4s;"></div>
+          <div class="win lit" style="--bd:6s;--bdd:-2.8s;"></div>
+          <div class="win lit" style="--bd:3.5s;--bdd:-0.9s;"></div>
+          <div class="win" style="opacity:0.08;"></div>
+          <div class="win lit" style="--bd:8s;--bdd:-1.6s;"></div>
+          <div class="win lit" style="--bd:4s;--bdd:-3.2s;"></div>
+          <div class="win lit" style="--bd:5s;--bdd:-0.4s;"></div>
+          <div class="win lit" style="--bd:7s;--bdd:-2.6s;"></div>
+          <div class="win" style="opacity:0.08;"></div>
+          <div class="win lit" style="--bd:3s;--bdd:-1.1s;"></div>
+          <div class="win lit" style="--bd:6s;--bdd:-3.8s;"></div>
+          <div class="win lit" style="--bd:4.5s;--bdd:-0.7s;"></div>
+          <div class="win lit" style="--bd:5s;--bdd:-2s;"></div>
+          <div class="win lit" style="--bd:3.5s;--bdd:-1.3s;"></div>
+          <div class="win lit" style="--bd:7.5s;--bdd:-0.2s;"></div>
+          <div class="win lit" style="--bd:4s;--bdd:-4s;"></div>
+        </div>
+        <div class="lobby"></div>
+        <div class="b-side" style="background:#060c14;width:18px;right:-18px;"></div>
+        <div class="bld-glow" style="background:var(--work-c);"></div>
+      </div>
+      <div class="b-label">↑ work</div>
+    </div>
+
+    <!-- 🎭 THEATRE — Creative Coding -->
+    <div class="building bld-theatre" onclick="goTo('coding')" title="Creative Coding">
+      <div class="neon-sign">THEATRE</div>
+      <div class="b-front">
+        <div class="dome"></div>
+        <div class="b-windows">
+          <div class="win lit" style="--bd:4s;--bdd:0s;"></div>
+          <div class="win lit" style="--bd:6s;--bdd:-1s;"></div>
+          <div class="win lit" style="--bd:5s;--bdd:-2s;"></div>
+          <div class="win lit" style="--bd:7s;--bdd:-0.5s;"></div>
+          <div class="win lit" style="--bd:3.5s;--bdd:-1.5s;"></div>
+          <div class="win lit" style="--bd:8s;--bdd:-3s;"></div>
+          <div class="win" style="opacity:0.08;"></div>
+          <div class="win lit" style="--bd:5s;--bdd:-2.5s;"></div>
+          <div class="win lit" style="--bd:4s;--bdd:-0.8s;"></div>
+          <div class="win lit" style="--bd:6.5s;--bdd:-1.2s;"></div>
+          <div class="win lit" style="--bd:3s;--bdd:-3.5s;"></div>
+          <div class="win" style="opacity:0.08;"></div>
+        </div>
+        <div class="marquee">
+          <div class="marquee-text">✦ GENERATIVE ART · p5.js · CREATIVE CODE · FLOW FIELDS ✦</div>
+        </div>
+        <div class="b-side" style="background:#09040c;width:15px;right:-15px;"></div>
+        <div class="bld-glow" style="background:var(--coding-c);"></div>
+      </div>
+      <div class="b-label">↑ creative coding</div>
+    </div>
+
+    <!-- 📞 TOWER — Contact -->
+    <div class="building bld-tower" onclick="goTo('contact')" title="Contact">
+      <div class="neon-sign">TOWER</div>
+      <div class="b-front">
+        <div class="spire"></div>
+        <div class="spire-tip"></div>
+        <div class="b-windows">
+          <div class="win lit" style="--bd:3s;--bdd:0s;"></div>
+          <div class="win lit" style="--bd:5s;--bdd:-1s;"></div>
+          <div class="win lit" style="--bd:4s;--bdd:-2s;"></div>
+          <div class="win lit" style="--bd:6s;--bdd:-0.5s;"></div>
+          <div class="win lit" style="--bd:7s;--bdd:-1.5s;"></div>
+          <div class="win lit" style="--bd:3.5s;--bdd:-3s;"></div>
+          <div class="win" style="opacity:0.08;"></div>
+          <div class="win lit" style="--bd:5s;--bdd:-2.5s;"></div>
+          <div class="win lit" style="--bd:4.5s;--bdd:-0.8s;"></div>
+          <div class="win" style="opacity:0.08;"></div>
+          <div class="win lit" style="--bd:6s;--bdd:-1.2s;"></div>
+          <div class="win lit" style="--bd:3s;--bdd:-3.5s;"></div>
+        </div>
+        <div class="b-side" style="background:#080408;width:12px;right:-12px;"></div>
+        <div class="bld-glow" style="background:var(--contact-c);"></div>
+      </div>
+      <div class="b-label">↑ contact</div>
+    </div>
+
+  </div><!-- /city-stage -->
+
+  <!-- Scroll hint -->
+  <div class="scroll-hint">
+    <svg width="14" height="22" viewBox="0 0 14 22" fill="none">
+      <rect x="0.75" y="0.75" width="12.5" height="20.5" rx="6.25" stroke="currentColor" stroke-width="1.5"/>
+      <circle cx="7" cy="6" r="1.8" fill="currentColor">
+        <animate attributeName="cy" values="6;13;6" dur="1.8s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0.2;1" dur="1.8s" repeatCount="indefinite"/>
+      </circle>
+    </svg>
+    scroll to explore
+  </div>
+
+</section>
+
+<!-- ═══════════ ABOUT ═══════════ -->
+<section id="about" class="port-section">
+  <div class="reveal">
+    <div class="sec-tag">01 — Who I am</div>
+    <h2 class="sec-title">Designing with <em>intention</em><br>and curiosity.</h2>
+    <div class="sec-divider"></div>
+  </div>
+  <div class="about-wrap reveal">
+    <!-- LEFT: Profile Image -->
+    <div class="about-image-col">
+      <div class="profile-img-wrap">
+        <img src="EBF1DD71-5433-4F35-8F7E-40D974A007D0.jpeg" alt="Somya Dang" class="profile-img"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="profile-img-placeholder">
+          <span>SD</span>
+        </div>
+      </div>
+    </div>
+    <!-- RIGHT: Text + Skills -->
+    <div class="about-right-col">
+      <div class="about-text">
+        <p>Hi, I'm <strong>Somya Dang</strong> — a second-year Bachelor of Design (UI/UX) student with a deep love for crafting digital experiences that feel genuinely human.</p>
+        <p>My work lives at the intersection of <strong>empathy and aesthetics</strong>. I believe great design isn't just about how something looks — it's about how it makes someone feel when they use it.</p>
+        <p>When I'm not pushing pixels, I'm sketching in my journal, exploring creative code, or hunting for the perfect chai.</p>
+        <p style="font-size:0.78rem;color:var(--dim);margin-top:1.5rem;font-family:'DM Mono',monospace;">somya.dang18@email.com</p>
+      </div>
+      <div class="skill-blocks">
+        <div class="skill-block">
+          <h4>Design</h4>
+          <div class="skill-pills">
+            <span class="pill">UI Design</span><span class="pill">UX Research</span>
+            <span class="pill">Wireframing</span><span class="pill">Prototyping</span><span class="pill">Design Systems</span>
+          </div>
+        </div>
+        <div class="skill-block">
+          <h4>Tools</h4>
+          <div class="skill-pills">
+            <span class="pill">Figma</span><span class="pill">Adobe XD</span>
+            <span class="pill">Illustrator</span><span class="pill">Photoshop</span><span class="pill">Procreate</span>
+          </div>
+        </div>
+        <div class="skill-block">
+          <h4>Code</h4>
+          <div class="skill-pills">
+            <span class="pill">HTML & CSS</span><span class="pill">JavaScript</span>
+            <span class="pill">p5.js</span>
+          </div>
+        </div>
+        <div class="skill-block">
+          <h4>Soft Skills</h4>
+          <div class="skill-pills">
+            <span class="pill">Empathy</span><span class="pill">Time Management</span>
+            <span class="pill">Adaptability</span><span class="pill">Critical Thinking</span>
+            <span class="pill">Decision Making</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ JOURNAL ═══════════ -->
+<section id="journal" class="port-section">
+  <div class="reveal">
+    <div class="sec-tag">02 — Thoughts & Process</div>
+    <h2 class="sec-title">My design <em>journal.</em></h2>
+    <div class="sec-divider"></div>
+  </div>
+
+  <div class="journal-carousel reveal">
+    <!-- Arrow nav -->
+    <div class="j-nav">
+      <button class="j-arrow" id="jPrev" aria-label="Previous">&#8592;</button>
+      <span class="j-counter" id="jCounter">1 / 6</span>
+      <button class="j-arrow" id="jNext" aria-label="Next">&#8594;</button>
+    </div>
+
+    <!-- Track viewport (clips overflow) -->
+    <div class="j-track-viewport">
+      <div class="j-track" id="jTrack">
+
+        <div class="j-card j-active">
+          <div class="j-card-date">Week 1 · January 2026</div>
+          <h3>Introduction to Creative Coding</h3>
+          <p>Today we were introduced to the concept of creative coding and discussed how programming can be used...</p>
+          <a class="j-more" href="#" onclick="event.preventDefault();openJournal('Introduction to Creative Coding','Week 1 · January 2026','Today we were introduced to the concept of creative coding and discussed how programming can be used as a medium for artistic expression instead of only functional purposes. The teacher explained the relationship between HTML, CSS, and p5.js and showed us examples of interactive visuals and animations created through code. We also learned about the p5.js editor interface and how it simplifies coding for artists and designers. This session made me realize that coding can be both technical and creative at the same time.','journal1.jpg')">Read more →</a>
+        </div>
+
+        <div class="j-card">
+          <div class="j-card-date">Week 2 · January 2026</div>
+          <h3>Understanding the p5.js Canvas</h3>
+          <p>This week focused on understanding the p5.js canvas and coordinate system. We learned how shapes like circles, rectangles, triangles, and lines can be placed...</p>
+          <a class="j-more" href="#" onclick="event.preventDefault();openJournal('Understanding the p5.js Canvas','Week 2 · January 2026','This week focused on understanding the p5.js canvas and coordinate system. We learned how shapes like circles, rectangles, triangles, and lines can be placed on the screen using x and y coordinates. The teacher also explained the importance of setup() and draw() functions in p5.js. Through practice exercises, I understood how positioning, alignment, and spacing affect the composition of digital artwork.','journal2.jpg')">Read more →</a>
+        </div>
+
+        <div class="j-card">
+          <div class="j-card-date">Week 3 · January 2026</div>
+          <h3>Exploring Colours and Visual Composition</h3>
+          <p>In this session we experimented with colours, fills, strokes, and backgrounds in p5.js. The teacher demonstrated how colour...</p>
+          <a class="j-more" href="#" onclick="event.preventDefault();openJournal('Exploring Colours and Visual Composition','Week  3 · January 2026','In this session we experimented with colours, fills, strokes, and backgrounds in p5.js. The teacher demonstrated how colour combinations and stroke weights can change the visual mood of a composition. We created simple abstract sketches using different geometric shapes and experimented with balance and repetition. This activity helped me understand how visual hierarchy and composition principles also apply in coding-based artwork.','journal3.jpg')">Read more →</a>
+        </div>
+
+        <div class="j-card">
+          <div class="j-card-date">Week 4 · January 2026</div>
+          <h3>Basics of Animation in p5.js</h3>
+          <p>Today we learned the fundamentals of animation in p5.js. The teacher explained how repeated execution inside the draw...</p>
+          <a class="j-more" href="#" onclick="event.preventDefault();openJournal('Basics of Animation in p5.js','Week 4 · February 2026','Today we learned the fundamentals of animation in p5.js. The teacher explained how repeated execution inside the draw() function creates movement on the screen. We experimented with moving shapes, changing positions over time, and creating smooth transitions. This session helped me understand how frame updates and timing work together to produce interactive animations and motion graphics.','journal4.jpg')">Read more →</a>
+        </div>
+
+        <div class="j-card">
+          <div class="j-card-date">Week 5 · February 2026</div>
+          <h3>Researching Creative Coding Inspirations</h3>
+          <p>This week we were asked to explore platforms like OpenProcessing and other animation-based websites for inspiration. I researched several...</p>
+          <a class="j-more" href="#" onclick="event.preventDefault();openJournal('Researching Creative Coding Inspirations','Week 5 · February 2026','This week we were asked to explore platforms like OpenProcessing and other animation-based websites for inspiration. I researched several creative coding projects and observed how artists combine movement, interaction, colours, and sound with programming. Some projects used particles and generative art while others focused on interactive storytelling. This research activity expanded my understanding of the possibilities within creative coding.','journal5.jpg')">Read more →</a>
+        </div>
+
+        <div class="j-card">
+          <div class="j-card-date">Week 6 · February 2026</div>
+          <h3>Presenting and Explaining Online Examples</h3>
+          <p>Today everyone presented the examples they found online and explained the concepts behind them. We discussed how loops, randomness, interaction...</p>
+          <a class="j-more" href="#" onclick="event.preventDefault();openJournal('Presenting and Explaining Online Examples','Week 6 · February 2026','Today everyone presented the examples they found online and explained the concepts behind them. We discussed how loops, randomness, interaction, and animation were used to create visual effects. Listening to different presentations helped me learn new coding techniques and understand how even simple functions can produce complex outputs when combined creatively. The session also improved my observation and explanation skills.','journal6.jpg')">Read more →</a>
+        </div>
+
+         <div class="j-card">
+          <div class="j-card-date">Week 7 · February 2026</div>
+          <h3>Introduction to Assignment 1: Childhood Toy</h3>
+          <p>The teacher introduced our first creative coding assignment based on childhood toys. We had to describe...</p>
+          <a class="j-more" href="#" onclick="event.preventDefault();openJournal('Introduction to Assignment 1: Childhood Toy','Week 7 · February 2026','The teacher introduced our first creative coding assignment based on childhood toys. We had to describe our favourite toy to our partner without showing our drawing, and then recreate the toy digitally in p5.js only through verbal descriptions. The assignment focused on observation, communication, and translating memories into visual forms using primitive shapes and colours. I found the idea very creative and interesting because it combined imagination with coding.','journal7.jpg')">Read more →</a>
+        </div>
+         <div class="j-card">
+          <div class="j-card-date">Week 8 · February 2026</div>
+          <h3>Planning the Childhood Toy Sketch</h3>
+          <p>This week I started planning my childhood toy assignment. I carefully analysed the toy and broke it into simple geometric shapes...</p>
+          <a class="j-more" href="#" onclick="event.preventDefault();openJournal('Planning the Childhood Toy Sketch','Week 8 · February 2026','This week I started planning my childhood toy assignment. I carefully analysed the toy and broke it into simple geometric shapes that could be recreated in p5.js. I also experimented with colour palettes and proportions to make the digital version visually accurate. This process taught me how complex objects can be simplified into basic forms before coding them.','journal8.jpg')">Read more →</a>
+        </div>
+
+         <div class="j-card">
+          <div class="j-card-date">Week 9 · March 2026</div>
+          <h3>Building the Toy in p5.js</h3>
+          <p>I worked on coding my friend childhood toy sketch in p5.js using primitive shapes and pastel colours. I focused on placement, layering...</p>
+          <a class="j-more" href="#" onclick="event.preventDefault();openJournal('Building the Toy in p5.js','Week 9 · March 2026',' I worked on coding my friend childhood toy sketch in p5.js using primitive shapes and pastel colours. I focused on placement, layering, and details to make the toy look visually balanced and recognisable. While coding the sketch, I learned how small adjustments in shape size and alignment can greatly improve the final result. The process felt similar to digital illustration but through programming.','journal9.jpg')">Read more →</a>
+        </div>
+
+         <div class="j-card">
+          <div class="j-card-date">Week 10 · March 2026</div>
+          <h3>Refining Shapes and Details</h3>
+          <p>This week was mainly focused on refining the childhood toy sketch and adding extra details. The teacher encouraged us...</p>
+          <a class="j-more" href="#" onclick="event.preventDefault();openJournal('Refining Shapes and Details','Week 10 · March 2026','This week was mainly focused on refining the childhood toy sketch and adding extra details. The teacher encouraged us to experiment more with styling, colour combinations, and small decorative elements. I spent time improving the proportions, colours, and overall neatness of my design. Through this process, I learned the importance of iteration and attention to detail in creative coding projects.','journal10.jpg')">Read more →</a>
+        </div>
+
+         <div class="j-card">
+          <div class="j-card-date">Week 11 · March 2026</div>
+          <h3>HTML Structure Exercise</h3>
+          <p>Today we practiced creating webpage structures using HTML. We designed simple webpages for a fictional coffee...</p>
+          <a class="j-more" href="#" onclick="event.preventDefault();openJournal('HTML Structure Exercise','Week 11 · March 2026','Today we practiced creating webpage structures using HTML. We designed simple webpages for a fictional coffee brand and learned how headings, paragraphs, images, and sections are organized within a webpage. The teacher explained semantic structure and proper arrangement of content. This exercise helped me connect web design concepts with creative coding practices.','journal11.jpg')">Read more →</a>
+        </div>
+
+         <div class="j-card">
+          <div class="j-card-date">Week 12 · March 2026</div>
+          <h3>Creating a Mission Page in HTML</h3>
+          <p>This week we created a mission page for the same coffee brand using HTML and CSS. We learned how multiple pages...</p>
+          <a class="j-more" href="#" onclick="event.preventDefault();openJournal('Creating a Mission Page in HTML','Week 12 · March 2026',' This week we created a mission page for the same coffee brand using HTML and CSS. We learned how multiple pages can be connected through links and how styling improves the overall appearance of a webpage. I experimented with layouts, spacing, and typography while designing the page. This activity improved my understanding of webpage structure and basic front-end design.','journal12.jpg')">Read more →</a>
+        </div>
+
+         <div class="j-card">
+          <div class="j-card-date">Week 13 · April 2026</div>
+          <h3>Introduction to the Random Face Generator</h3>
+          <p>The teacher introduced Assignment 2, which focused on building a Random Face Generator using parameterized design...</p>
+          <a class="j-more" href="#" onclick="event.preventDefault();openJournal('Introduction to the Random Face Generator','Week 13 · April 2026','The teacher introduced Assignment 2, which focused on building a Random Face Generator using parameterized design in p5.js. We learned how user-defined variables and the random() function can generate multiple variations of a face automatically. The teacher explained how randomness creates diversity while parameters maintain visual consistency. This concept made creative coding feel more experimental and dynamic.','journal13.jpg')">Read more →</a>
+        </div>
+
+         <div class="j-card">
+          <div class="j-card-date">Week 14 · April 2026</div>
+          <h3>Sketching and Coding Face Variations</h3>
+          <p>This week I sketched the maximum and minimum versions of facial features before coding them. I explored...</p>
+          <a class="j-more" href="#" onclick="event.preventDefault();openJournal('Sketching and Coding Face Variations','Week 14 · April 2026','This week I sketched the maximum and minimum versions of facial features before coding them. I explored different eye shapes, face proportions, hairstyles, and colour variations to understand how small changes affect visual identity. Later, I started coding the face generator using variables, random values, and interactions like mousePressed() and keyPressed(). This activity improved my understanding of parameterized design and interactive systems.','journal14.jpg')">Read more →</a>
+        </div>
+        
+        <div class="j-card">
+          <div class="j-card-date">Week 15 · April 2026</div>
+          <h3>Final Refinements and Learning Reflection</h3>
+          <p>Today I refined both assignments and tested multiple outputs to ensure that every variation looked intentional and visually balanced. I adjusted colours, spacing, and random...</p>
+          <a class="j-more" href="#" onclick="event.preventDefault();openJournal('Final Refinements and Learning Reflection','Week 15 · April 2026','Today I refined both assignments and tested multiple outputs to ensure that every variation looked intentional and visually balanced. I adjusted colours, spacing, and random ranges to improve the overall results of the face generator. Looking back at these weeks, I realized that creative coding combines design thinking, experimentation, storytelling, interaction, and programming together. These activities helped me become more confident in both coding and visual problem-solving.','journal15.jpg')">Read more →</a>
+        </div>
+
+      </div><!-- /j-track -->
+    </div><!-- /j-track-viewport -->
+
+    <!-- Progress dots -->
+    <div class="j-dots" id="jDots"></div>
+  </div>
+</section>
+
+<!-- Journal Popup -->
+<div class="journal-popup" id="journalPopup">
+  <div class="jp-content">
+    <span class="jp-close" onclick="closeJournal()">✕</span>
+    <img id="jp-image" src="" alt="" />
+    <div class="jp-text">
+      <h2 id="jp-title">Title</h2>
+      <p id="jp-date">Date</p>
+      <p id="jp-text"></p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ WORK ═══════════ -->
+<section id="work" class="port-section">
+  <div class="reveal">
+    <div class="sec-tag">03 — Selected Projects</div>
+    <h2 class="sec-title">Things I've <em>built.</em></h2>
+    <div class="sec-divider"></div>
+  </div>
+  <div class="work-grid">
+    <div class="w-card" onclick="openProject('beverage-app.pdf')">
+      <div class="w-thumb" style="background:linear-gradient(135deg,#0a1c14,#061008);">
+        <img src="Group 7106.png" alt="Beverage App UI" onerror="this.style.display='none'">
+        🧃
+        <div class="w-overlay">
+          <h4>Beverage App UI</h4>
+          <p>From IA to hi-fi screens — colour & layout that influence appetite.</p>
+          <span class="w-overlay-cta">View Project</span>
+        </div>
+      </div>
+      <div class="w-info">
+        <h3>Beverage App UI Design</h3>
+        <p>A full UI design for a beverage ordering app — from information architecture to hi-fi screens, exploring how colour and layout influence appetite.</p>
+        <div class="w-tags"><span class="w-tag">UI Design</span><span class="w-tag">Figma</span><span class="w-tag">User Flows</span></div>
+      </div>
+    </div>
+    <div class="w-card" onclick="openProject('dropngo.pdf')">
+      <div class="w-thumb" style="background:linear-gradient(135deg,#0e0a1c,#080614);">
+        <img src="Group 1.png" alt="DropNGo" onerror="this.style.display='none'">
+        🚗
+        <div class="w-overlay">
+          <h4>DropNGo</h4>
+          <p>Real-time drop-off coordination — research to prototype for school traffic.</p>
+          <span class="w-overlay-cta">View Project</span>
+        </div>
+      </div>
+      <div class="w-info">
+        <h3>DropNGo</h3>
+        <p>A UX solution addressing school traffic congestion — research, journey mapping, and interaction design for a real-time drop-off coordination system.</p>
+        <div class="w-tags"><span class="w-tag">UX Research</span><span class="w-tag">Systems</span><span class="w-tag">Prototyping</span></div>
+      </div>
+    </div>
+    <div class="w-card" onclick="openProject('parivahan.pdf')">
+      <div class="w-thumb" style="background:linear-gradient(135deg,#1a140a,#0e0c06);">
+        <img src="Group2.png" alt="Design System Study" onerror="this.style.display='none'">
+        📐
+        <div class="w-overlay">
+          <h4>Parivaahan Website Redesign</h4>
+          <p>The project involved identifying key pain points, restructuring information architecture, and designing a cleaner, more accessible interface for users.</p>
+          <span class="w-overlay-cta">View Project</span>
+        </div>
+      </div>
+      <div class="w-info">
+        <h3>Parivaahan Website Redesign</h3>
+        <p>A concept-based app designed to help users capture and reflect on their daily life experiences.</p>
+        <div class="w-tags"><span class="w-tag">Design Systems</span><span class="w-tag">Components</span><span class="w-tag">Figma</span></div>
+      </div>
+    </div>
+    <div class="w-card" onclick="openProject('lifelens.pdf')">
+      <div class="w-thumb" style="background:linear-gradient(135deg,#14101a,#0c0810);">
+        <img src="Rectangle 265.png" alt="Pencil Sketch Portfolio" onerror="this.style.display='none'">
+        ✏️
+        <div class="w-overlay">
+          <h4>Lifelens</h4>
+          <p>Ideation thumbnails to refined observational drawings — thinking on paper.</p>
+          <span class="w-overlay-cta">View Project</span>
+        </div>
+      </div>
+      <div class="w-info">
+        <h3>Lifelens</h3>
+        <p>A concept-based app designed to help users capture and reflect on their daily life experiences.</p>
+        <div class="w-tags"><span class="w-tag">Sketching</span><span class="w-tag">Ideation</span><span class="w-tag">Illustration</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CREATIVE CODING ═══════════ -->
+<section id="coding" class="port-section">
+  <div class="reveal">
+    <div class="sec-tag">04 — Code as Canvas</div>
+    <h2 class="sec-title">Creative <em>coding.</em></h2>
+    <div class="sec-divider"></div>
+  </div>
+  <div class="coding-grid reveal">
+    <div class="cc-card" onclick="openProject('abstract_pattern_fixed.html')">
+      <div class="cc-preview" style="background:linear-gradient(135deg,#0c0818,#160a22);">
+        <img src="code1.jpg" alt=" Childhood Toy" onerror="this.style.display='none'">
+        <div class="cc-orb" style="width:80px;height:80px;background:#b08ee0;left:30%;top:20%;--od:4s;"></div>
+        <div class="cc-orb" style="width:50px;height:50px;background:#f4a7b9;right:25%;bottom:25%;--od:6s;--oddel:-2s;"></div>
+        <div class="cc-orb" style="width:35px;height:35px;background:#4fc3f7;left:55%;top:40%;--od:3s;--oddel:-1s;"></div>
+        <span style="position:relative;z-index:2;"></span>
+      </div>
+      <div class="cc-info">
+        <h3> Random Generator</h3>
+        <p>A p5.js sketch that generates multiple variations of a face using parameterized design and randomness. By adjusting features through defined variables, each iteration creates a unique expression, exploring how small changes influence visual identity.</p>
+        <div class="cc-tech">p5.js · Generative Design · Mathematics · Randomization</div>
+      </div>
+    </div>
+    <div class="cc-card" onclick="openProject('barbie-phone.html')">
+      <div class="cc-preview" style="background:linear-gradient(135deg,#080e18,#0a1420);">
+        <img src="code2.jpg" alt="Particle Flow Field" onerror="this.style.display='none'">
+        <div class="cc-orb" style="width:90px;height:90px;background:#56e0a0;left:20%;top:15%;--od:5s;"></div>
+        <div class="cc-orb" style="width:60px;height:60px;background:#4fc3f7;right:20%;bottom:20%;--od:7s;--oddel:-3s;"></div>
+        <div class="cc-orb" style="width:40px;height:40px;background:#cf6bdd;left:50%;top:50%;--od:4s;--oddel:-1.5s;"></div>
+        <span style="position:relative;z-index:2;"></span>
+      </div>
+      <div class="cc-info">
+        <h3> Childhood Toy</h3>
+        <p>A playful p5.js sketch inspired by nostalgic Barbie aesthetics — recreating a classic keypad phone using soft colors and simple geometric shapes. This piece explores how memory and emotion can be translated into digital form.</p>
+        <div class="cc-tech">p5.js ·  Nostalgia ·  Basic Shapes</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CONTACT ═══════════ -->
+<section id="contact">
+  <div class="reveal">
+    <div class="sec-tag">05 — Let's Talk</div>
+    <h2 class="sec-title">Say <em>hello.</em></h2>
+    <div class="sec-divider"></div>
+    <p class="contact-sub">Always open to new projects, collabs, or just a good conversation about design. The city lights are on — drop me a line!</p>
+  </div>
+  <form class="contact-form reveal" onsubmit="handleForm(event)">
+    <div class="f-row">
+      <div class="f-field">
+        <label>Name</label>
+        <input type="text" placeholder="Your name"/>
+      </div>
+      <div class="f-field">
+        <label>Email</label>
+        <input type="email" placeholder="your@email.com"/>
+      </div>
+    </div>
+    <div class="f-field">
+      <label>Subject</label>
+      <input type="text" placeholder="What's on your mind?"/>
+    </div>
+    <div class="f-field">
+      <label>Message</label>
+      <textarea placeholder="Tell me more..."></textarea>
+    </div>
+    <button type="submit" class="btn-contact">Send Message</button>
+  </form>
+  <p id="form-ok" style="display:none;margin-top:1.5rem;color:var(--contact-c);font-size:0.78rem;font-family:'DM Mono',monospace;letter-spacing:0.1em;">
+    ✓ Message received! I'll get back to you soon.
+  </p>
+</section>
+
+<!-- Project Popup (PDF Viewer) -->
+<div class="project-popup" id="projectPopup">
+  <div class="pp-content">
+    <span class="pp-close" onclick="closeProject()">✕</span>
+    <iframe id="pp-frame" src=""></iframe>
+  </div>
+</div>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <p>Built with <span>♡</span> by Somya Dang · UI/UX Design Student · 2026</p>
+</footer>
+
+<script>
+/* ── Star generation ── */
+(function(){
+  const container = document.getElementById('stars');
+  const count = 120;
+  for(let i=0;i<count;i++){
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random()*2+0.5;
+    const op = Math.random()*0.6+0.2;
+    s.style.cssText = `
+      left:${Math.random()*100}%;
+      top:${Math.random()*70}%;
+      width:${size}px;
+      height:${size}px;
+      --op:${op};
+      --dur:${(Math.random()*3+2).toFixed(1)}s;
+      --del:-${(Math.random()*5).toFixed(1)}s;
+    `;
+    container.appendChild(s);
+  }
+})();
+
+/* ── Smooth scroll ── */
+function goTo(id){
+  const el = document.getElementById(id);
+  if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+/* ── Active nav ── */
+const secIds = ['home','about','journal','work','coding','contact'];
+const actMap = {
+  home:'act-home', about:'act-about', journal:'act-journal',
+  work:'act-work', coding:'act-coding', contact:'act-contact'
+};
+
+function setNav(id){
+  document.querySelectorAll('.nav-links a').forEach(a=>{
+    a.className = '';
+    if(a.dataset.sec===id) a.className = actMap[id]||'';
+  });
+}
+
+const navObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) setNav(e.target.id); });
+},{threshold:0.35});
+
+secIds.forEach(id=>{
+  const el = document.getElementById(id);
+  if(el) navObs.observe(el);
+});
+
+/* ── Scroll reveal ── */
+const revealObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+},{threshold:0.1});
+
+document.querySelectorAll('.reveal').forEach(el=>revealObs.observe(el));
+
+/* ── Work cards — staggered scroll reveal ── */
+const workCards = document.querySelectorAll('.w-card');
+const workObs = new IntersectionObserver((entries, obs) => {
+  let delay = 0;
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      setTimeout(() => e.target.classList.add('visible'), delay);
+      delay += 120;
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+workCards.forEach(c => workObs.observe(c));
+
+/* ── Journal Carousel ── */
+(function(){
+  const track   = document.getElementById('jTrack');
+  const cards   = Array.from(track.querySelectorAll('.j-card'));
+  const counter = document.getElementById('jCounter');
+  const dotsEl  = document.getElementById('jDots');
+  const prevBtn = document.getElementById('jPrev');
+  const nextBtn = document.getElementById('jNext');
+  const total   = cards.length;
+  let current   = 0;
+
+  /* Build dots */
+  cards.forEach((_, i) => {
+    const d = document.createElement('button');
+    d.className = 'j-dot' + (i===0 ? ' active' : '');
+    d.setAttribute('aria-label', `Go to card ${i+1}`);
+    d.addEventListener('click', () => goCard(i));
+    dotsEl.appendChild(d);
+  });
+
+  function getCardWidth(){
+    /* card width + gap */
+    return cards[0].offsetWidth + 26; /* 26 = 1.6rem gap approx */
+  }
+
+  function goCard(idx){
+    /* clamp */
+    current = Math.max(0, Math.min(total-1, idx));
+
+    /* update active class */
+    cards.forEach((c, i) => {
+      c.classList.toggle('j-active', i === current);
+    });
+
+    /* center the active card inside the viewport */
+    const viewport = track.parentElement;
+    const vw = viewport.offsetWidth;
+    const cw = cards[current].offsetWidth;
+    /* offset: push track so active card is centered */
+    const offset = cards[current].offsetLeft - (vw / 2) + (cw / 2);
+    track.style.transform = `translateX(${-offset}px)`;
+
+    /* counter + dots */
+    counter.textContent = `${current+1} / ${total}`;
+    dotsEl.querySelectorAll('.j-dot').forEach((d,i) => {
+      d.classList.toggle('active', i===current);
+    });
+  }
+
+  prevBtn.addEventListener('click', () => goCard(current - 1));
+  nextBtn.addEventListener('click', () => goCard(current + 1));
+
+  /* Keyboard support */
+  document.addEventListener('keydown', e => {
+    const jSection = document.getElementById('journal');
+    const rect = jSection.getBoundingClientRect();
+    if(rect.top < window.innerHeight && rect.bottom > 0){
+      if(e.key === 'ArrowLeft') goCard(current - 1);
+      if(e.key === 'ArrowRight') goCard(current + 1);
+    }
+  });
+
+  /* Touch/drag support */
+  let startX = 0;
+  track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, {passive:true});
+  track.addEventListener('touchend',   e => {
+    const dx = e.changedTouches[0].clientX - startX;
+    if(Math.abs(dx) > 50) goCard(current + (dx < 0 ? 1 : -1));
+  });
+
+  /* Initial layout after paint */
+  requestAnimationFrame(() => { goCard(0); });
+  window.addEventListener('resize', () => goCard(current));
+})();
+
+/* ── Form submit ── */
+function handleForm(e){
+  e.preventDefault();
+  const ok = document.getElementById('form-ok');
+  ok.style.display='block';
+  e.target.reset();
+  setTimeout(()=>{ ok.style.display='none'; }, 5000);
+}
+
+/* ── Building window random off states ── */
+document.querySelectorAll('.win.lit').forEach(w=>{
+  if(Math.random() < 0.15) w.style.opacity = '0.08';
+});
+
+/* ── Dark / Light Mode Toggle ── */
+const themeToggle = document.getElementById('themeToggle');
+const toggleThumb = themeToggle.querySelector('.toggle-thumb');
+const toggleIcons = themeToggle.querySelectorAll('.toggle-icon');
+
+const savedTheme = localStorage.getItem('theme');
+if(savedTheme === 'light') {
+  document.body.classList.add('light-mode');
+  toggleThumb.textContent = '🌙';
+  toggleIcons[0].style.opacity = '0.2';
+  toggleIcons[1].style.opacity = '1';
+}
+
+themeToggle.addEventListener('click', () => {
+  const isLight = document.body.classList.toggle('light-mode');
+  localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  toggleThumb.textContent = isLight ? '🌙' : '☀️';
+  toggleIcons[0].style.opacity = isLight ? '0.2' : '0.5';
+  toggleIcons[1].style.opacity = isLight ? '1' : '0.5';
+});
+
+/* ── Project Popup (PDF Viewer) ── */
+function openProject(file){
+  const popup = document.getElementById('projectPopup');
+  popup.style.display = 'flex';
+  document.getElementById('pp-frame').src = file;
+  document.body.style.overflow = 'hidden';
+}
+function closeProject(){
+  const popup = document.getElementById('projectPopup');
+  popup.style.display = 'none';
+  document.getElementById('pp-frame').src = '';
+  document.body.style.overflow = '';
+}
+/* Close project popup on backdrop click */
+document.getElementById('projectPopup').addEventListener('click', function(e){
+  if(e.target === this) closeProject();
+});
+/* Escape key closes any open popup */
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape'){
+    closeProject();
+    closeJournal();
+  }
+});
+
+/* ── Journal Popup ── */
+function openJournal(title, date, text, img){
+  const popup = document.getElementById('journalPopup');
+  document.getElementById('jp-title').innerText = title;
+  document.getElementById('jp-date').innerText = date;
+  document.getElementById('jp-text').innerText = text;
+  const imgEl = document.getElementById('jp-image');
+  if(img){
+    imgEl.src = img;
+    imgEl.style.display = 'block';
+  } else {
+    imgEl.style.display = 'none';
+  }
+  popup.style.display = 'flex';
+  setTimeout(() => popup.classList.add('show'), 10);
+  document.body.style.overflow = 'hidden';
+}
+function closeJournal(){
+  const popup = document.getElementById('journalPopup');
+  popup.classList.remove('show');
+  setTimeout(() => {
+    popup.style.display = 'none';
+    document.body.style.overflow = '';
+  }, 300);
+}
+/* Close on backdrop click */
+document.getElementById('journalPopup').addEventListener('click', function(e){
+  if(e.target === this) closeJournal();
+});
+</script>
+</body>
+</html>
