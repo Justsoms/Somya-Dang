@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Barbie Phone ✨</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #ffe0f0, #ffd6f0, #fce4ff);
+      font-family: 'Quicksand', sans-serif;
+      overflow: hidden;
+    }
+    h1 {
+      font-family: 'Pacifico', cursive;
+      color: #e0006a;
+      font-size: 2.2rem;
+      margin-bottom: 16px;
+      text-shadow: 2px 3px 0px #ffb6d9, 4px 6px 20px #ff69b488;
+      letter-spacing: 2px;
+      animation: floatTitle 3s ease-in-out infinite;
+    }
+    @keyframes floatTitle {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
+    }
+    canvas {
+      border-radius: 20px;
+      filter: drop-shadow(0 20px 60px #ff69b855);
+    }
+    .sparkles {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .sparkle {
+      position: absolute;
+      width: 8px; height: 8px;
+      background: #ff69b8;
+      border-radius: 50%;
+      animation: twinkle 4s ease-in-out infinite;
+      opacity: 0;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; transform: scale(0); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="sparkles" id="sparkles"></div>
+<h1>✨ Barbie Phone ✨</h1>
+
+<script>
+  // Generate background sparkles
+  const container = document.getElementById('sparkles');
+  for (let i = 0; i < 30; i++) {
+    const s = document.createElement('div');
+    s.className = 'sparkle';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 100 + '%';
+    s.style.animationDelay = Math.random() * 4 + 's';
+    s.style.animationDuration = (2 + Math.random() * 3) + 's';
+    s.style.background = ['#ff69b8','#ff1493','#ffb6d9','#ff85c2','#da70d6'][Math.floor(Math.random()*5)];
+    container.appendChild(s);
+  }
+</script>
+
+<script>
+let t = 0;
+let screenAnim = 0;
+let heartbeat = 0;
+let glitterParticles = [];
+let buttonPress = -1;
+let currentText = "Hi Barbie!";
+const messages = ["Hi Barbie! 💖", "So Cute! ✨", "Fab-u-lous! 💅", "Xoxo 💕", "Queen 👑"];
+let msgIndex = 0;
+let notifPop = 0;
+
+function setup() {
+  let canvas = createCanvas(320, 580);
+  canvas.style('position', 'relative');
+  canvas.style('z-index', '1');
+  textFont('Quicksand');
+  for (let i = 0; i < 20; i++) {
+    glitterParticles.push(newParticle());
+  }
+}
+
+function newParticle() {
+  return {
+    x: random(140, 280),
+    y: random(150, 330),
+    size: random(2, 5),
+    speedX: random(-0.5, 0.5),
+    speedY: random(-0.8, -0.2),
+    life: random(0, 100),
+    maxLife: random(60, 120),
+    col: random([[255,105,180],[255,20,147],[218,112,214],[255,182,193]])
+  };
+}
+
+function draw() {
+  t += 0.025;
+  heartbeat += 0.08;
+  screenAnim += 0.02;
+
+  // Background
+  background(255, 230, 245);
+
+  // Subtle grid lines (cute paper effect)
+  stroke(255, 182, 210, 40);
+  strokeWeight(1);
+  for (let i = 0; i < height; i += 20) line(0, i, width, i);
+  for (let i = 0; i < width; i += 20) line(i, 0, i, height);
+
+  // PHONE SHADOW
+  noStroke();
+  fill(230, 80, 140, 40);
+  ellipse(160, 555, 130, 20);
+
+  // PHONE BODY - main
+  drawPhoneBody();
+
+  // SCREEN
+  drawScreen();
+
+  // KEYPAD
+  drawKeypad();
+
+  // ANTENNA with gem
+  drawAntenna();
+
+  // GLITTER particles on screen
+  updateGlitter();
+
+  // NOTIFICATION pop
+  if (notifPop > 0) {
+    drawNotification();
+    notifPop--;
+  }
+
+  noStroke();
+}
+
+function drawPhoneBody() {
+  // Outer glow
+  noStroke();
+  for (let i = 5; i > 0; i--) {
+    fill(255, 105, 180, 20 * i);
+    rect(90 - i*2, 80 - i*2, 140 + i*4, 440 + i*4, 38);
+  }
+
+  // Main phone body gradient (simulated)
+  for (let i = 0; i < 440; i++) {
+    let inter = map(i, 0, 440, 0, 1);
+    let c = lerpColor(color(255, 130, 200), color(220, 50, 160), inter);
+    fill(c);
+    noStroke();
+    rect(90, 80 + i, 140, 1, i < 30 ? map(i, 0, 30, 38, 0) : (i > 410 ? map(i, 410, 440, 0, 38) : 0));
+  }
+
+  // Shiny highlight strip
+  fill(255, 255, 255, 80);
+  noStroke();
+  rect(100, 90, 30, 420, 15);
+
+  // Phone outline
+  stroke(200, 60, 130);
+  strokeWeight(2.5);
+  noFill();
+  rect(90, 80, 140, 440, 38);
+
+  // Bottom speaker dots
+  noStroke();
+  fill(200, 60, 130, 150);
+  for (let i = 0; i < 5; i++) {
+    ellipse(130 + i * 14, 505, 5, 5);
+  }
+
+  // Logo area
+  fill(255, 255, 255, 120);
+  noStroke();
+  textAlign(CENTER, CENTER);
+  textFont('Georgia');
+  textStyle(BOLD);
+  textSize(10);
+  fill(255, 240, 248);
+  text("B", 160, 75);
+  textStyle(NORMAL);
+}
+
+function drawAntenna() {
+  // Antenna
+  stroke(220, 80, 150);
+  strokeWeight(4);
+  line(215, 90, 225, 55);
+  line(225, 55, 225, 35);
+
+  // Gem on top
+  noStroke();
+  let gemGlow = sin(t * 2) * 0.5 + 0.5;
+  fill(255, 20, 147, 80 + gemGlow * 80);
+  ellipse(225, 32, 16 + gemGlow * 4, 16 + gemGlow * 4);
+  fill(255, 105, 180);
+  ellipse(225, 32, 12, 12);
+  fill(255, 200, 230, 200);
+  ellipse(221, 29, 5, 5);
+}
+
+function drawScreen() {
+  // Screen bezel
+  fill(40, 10, 30);
+  noStroke();
+  rect(105, 110, 110, 145, 14);
+
+  // Screen (animated gradient)
+  let c1 = color(255, 200 + sin(screenAnim) * 20, 230);
+  let c2 = color(255, 100, 170);
+  for (let i = 0; i < 141; i++) {
+    let inter = map(i, 0, 141, 0, 1);
+    stroke(lerpColor(c1, c2, inter));
+    line(108, 113 + i, 212, 113 + i);
+  }
+  noStroke();
+
+  // Screen glow overlay
+  fill(255, 255, 255, 30);
+  rect(108, 113, 50, 141, 12);
+
+  // Time display
+  fill(180, 30, 100);
+  textFont('Quicksand');
+  textSize(10);
+  textAlign(CENTER, CENTER);
+  text("10:36 PM", 160, 126);
+
+  // Hearts floating on screen
+  let hx = 160 + sin(t * 1.5) * 15;
+  let hy = 165 + cos(t) * 8;
+  let hs = 1 + sin(heartbeat) * 0.15;
+  drawHeart(hx, hy, 22 * hs, color(255, 20, 100));
+
+  // Small hearts
+  let sm = 0.7 + sin(heartbeat + 1) * 0.1;
+  drawHeart(135, 178, 10 * sm, color(255, 80, 150, 180));
+  drawHeart(183, 172, 8 * sm, color(255, 80, 150, 180));
+
+  // Screen message
+  fill(150, 20, 80);
+  textSize(9);
+  textAlign(CENTER, CENTER);
+  text(currentText, 160, 242);
+
+  // Screen frame border
+  stroke(255, 160, 210, 150);
+  strokeWeight(1.5);
+  noFill();
+  rect(108, 113, 104, 141, 12);
+  noStroke();
+}
+
+function drawHeart(x, y, s, col) {
+  fill(col);
+  noStroke();
+  push();
+  translate(x, y);
+  scale(s / 20);
+  beginShape();
+  vertex(0, 5);
+  bezierVertex(-20, -10, -35, 5, 0, 28);
+  bezierVertex(35, 5, 20, -10, 0, 5);
+  endShape(CLOSE);
+  pop();
+}
+
+function drawKeypad() {
+  // Keypad background
+  fill(255, 160, 200);
+  noStroke();
+  rect(105, 278, 110, 200, 22);
+
+  // Keypad inner
+  fill(255, 190, 220);
+  rect(108, 281, 104, 194, 18);
+
+  const labels = ['1','2','3','4','5','6','7','8','9','*','0','#'];
+  const emojis = ['','ABC','DEF','GHI','JKL','MNO','PQRS','TUV','WXYZ','','',''];
+  let idx = 0;
+  for (let row = 0; row < 4; row++) {
+    for (let col = 0; col < 3; col++) {
+      let bx = 127 + col * 34;
+      let by = 302 + row * 44;
+      let isPressed = (buttonPress === idx);
+
+      // Button shadow
+      fill(200, 100, 150, 80);
+      noStroke();
+      ellipse(bx + 1, by + 2, 26, 26);
+
+      // Button body
+      if (isPressed) {
+        fill(255, 20, 147);
+      } else {
+        fill(255, 240, 248);
+      }
+      stroke(220, 100, 160, 150);
+      strokeWeight(1);
+      ellipse(bx, by, 26, 26);
+
+      // Button shine
+      noStroke();
+      fill(255, 255, 255, isPressed ? 50 : 120);
+      ellipse(bx - 3, by - 4, 10, 8);
+
+      // Number label
+      fill(isPressed ? 255 : color(180, 30, 100));
+      textSize(10);
+      textStyle(BOLD);
+      textAlign(CENTER, CENTER);
+      text(labels[idx], bx, by - 1);
+      textStyle(NORMAL);
+
+      // Sub label
+      fill(isPressed ? 255 : color(200, 80, 130, 180));
+      textSize(4.5);
+      text(emojis[idx], bx, by + 7);
+
+      idx++;
+    }
+  }
+  noStroke();
+
+  // Call / End buttons
+  // Call (green-pink)
+  fill(255, 105, 160);
+  stroke(200, 60, 120);
+  strokeWeight(1.5);
+  rect(112, 490, 40, 16, 8);
+  noStroke();
+  fill(255);
+  textSize(7);
+  text("📞", 132, 499);
+
+  // End (hot pink)
+  fill(200, 20, 90);
+  stroke(150, 10, 60);
+  strokeWeight(1.5);
+  rect(168, 490, 40, 16, 8);
+  noStroke();
+  fill(255);
+  textSize(7);
+  text("❌", 188, 499);
+}
+
+function updateGlitter() {
+  for (let p of glitterParticles) {
+    p.life++;
+    p.x += p.speedX;
+    p.y += p.speedY;
+    let alpha = map(p.life, 0, p.maxLife, 255, 0);
+    fill(p.col[0], p.col[1], p.col[2], alpha);
+    noStroke();
+    push();
+    translate(p.x, p.y);
+    rotate(p.life * 0.1);
+    star(0, 0, p.size * 0.4, p.size, 4);
+    pop();
+    if (p.life >= p.maxLife) {
+      Object.assign(p, newParticle());
+    }
+  }
+}
+
+function star(x, y, r1, r2, npoints) {
+  let angle = TWO_PI / npoints;
+  let half = angle / 2;
+  beginShape();
+  for (let a = -HALF_PI; a < TWO_PI - HALF_PI; a += angle) {
+    vertex(x + cos(a) * r2, y + sin(a) * r2);
+    vertex(x + cos(a + half) * r1, y + sin(a + half) * r1);
+  }
+  endShape(CLOSE);
+}
+
+function drawNotification() {
+  let alpha = min(notifPop * 3, 200);
+  fill(255, 20, 147, alpha);
+  noStroke();
+  rect(115, 260, 90, 16, 8);
+  fill(255, alpha);
+  textSize(7);
+  textAlign(CENTER, CENTER);
+  text("💌 New Message!", 160, 268);
+}
+
+function mousePressed() {
+  // Check keypad buttons
+  const labels = ['1','2','3','4','5','6','7','8','9','*','0','#'];
+  let idx = 0;
+  for (let row = 0; row < 4; row++) {
+    for (let col = 0; col < 3; col++) {
+      let bx = 127 + col * 34;
+      let by = 302 + row * 44;
+      if (dist(mouseX, mouseY, bx, by) < 14) {
+        buttonPress = idx;
+        setTimeout(() => { buttonPress = -1; }, 200);
+        // Change message
+        msgIndex = (msgIndex + 1) % messages.length;
+        currentText = messages[msgIndex];
+        notifPop = 80;
+        // Add burst of particles
+        for (let i = 0; i < 8; i++) {
+          glitterParticles.push({
+            x: bx + random(-5, 5),
+            y: by + random(-5, 5),
+            size: random(3, 7),
+            speedX: random(-1.5, 1.5),
+            speedY: random(-2, -0.5),
+            life: 0,
+            maxLife: random(40, 70),
+            col: [[255,105,180],[255,20,147],[218,112,214]][floor(random(3))]
+          });
+        }
+        return;
+      }
+      idx++;
+    }
+  }
+}
+</script>
+
+</body>
+</html>
